@@ -1,0 +1,104 @@
+classDiagram
+
+    class Bank {
+        -list user_list[User]
+        -list atm_list[ATMMachine]
+        -list edc_list[EDCMachine]
+        +add_user( User)
+        +add_atm_machine(ATMMachine)
+        +add_edc_machine(EDCMachine)
+    }
+
+    class User {
+        -instant citizen_id
+        -instant name
+        -list account_list[Account]
+        +add_account(Account)
+    }
+
+    class Account {
+        -instant account_no
+        -instant user
+        -instant card
+        -instant balance
+        -list transaction[Transaction]
+        +add_card()
+    }
+    class SavingAccount{
+
+    }
+    class FixedAccount{
+
+    }
+    class CurrentAccount{
+        
+    }
+    class Transaction {
+        -instant transaction_type
+        -instant source
+        -instant amount
+        -instant balance
+    }
+    class Card {
+        -instant card_no
+        -instant account_no
+        -instant pin
+        +validate_pin()
+        +verify_card()
+    }
+    class ATMCard{
+
+    }
+    class DebitCard{
+
+    }
+    class ShoppingDebitCard{
+
+    }
+    class TravelDebitCard{
+
+    }
+    class TransactionChannel {
+        -instant channel_id
+        -instant bank
+    }
+    class ATMMachine{
+        -instant atm_no
+        -instant money
+        -instant current_card
+        +insert_card()
+        +deposit()
+        +withdraw()
+        +transfer()
+    }
+    class Counter{
+        -instant branch_no
+        +verify_identity()
+        +deposit()
+        +withdraw()
+        +transfer()
+    }
+    class EDCMachine{
+        -instant edc_no
+        -instant merchant_account
+        -instant current_card
+        +swipe_card()
+        +pay()
+    }
+
+    Bank o-- User
+    Bank o-- ATMMachine
+    Bank o-- EDCMachine
+    TransactionChannel <|-- ATMMachine
+    TransactionChannel <|-- EDCMachine
+    TransactionChannel <|-- Counter
+    User --> Account
+    Account <|-- SavingAccount
+    Account <|-- FixedAccount
+    Account <|-- CurrentAccount
+    Account --> Transaction
+    Account --> Card
+    Card <|-- ATMCard
+    Card <|-- DebitCard
+    DebitCard <|-- ShoppingDebitCard
+    DebitCard <|-- TravelDebitCard
