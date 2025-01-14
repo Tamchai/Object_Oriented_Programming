@@ -1,0 +1,53 @@
+classDiagram
+    Bank o-- ATMMachine
+    Bank o-- User
+
+    User <--> Account
+    Account --> ATMCard
+    Account --> TransactionHistory
+    class User{
+        -str citizen_id
+        -str name
+        -list accounts[Account]
+        -list atm_cards[ATMCard]
+        +add_account()
+        +add_atm_cards()
+    }
+    class Account{
+        -str account_number
+        -instance owner
+        -float balance
+        -list transection_history[TransactionHistory]
+        -instance atm_card
+        +add_transaction()
+        +deposit()
+        +withdraw()
+        +transfer()
+    }
+    class ATMCard{
+        -str card_number
+        -instance Account
+        -str pin
+    }
+    class ATMMachine{
+        -str machine_id
+        -float initial_amount
+        +insert_card()
+        +deposit()
+        +withdraw()
+        +transfer()
+    }
+    class Bank{
+        -str name
+        -list user_list[User]
+        -list atmmachine_list[ATMMachine]
+        +add_user()
+        +add_atm_machine()
+        +get_atm_machine()
+    }
+    class TransactionHistory{
+        -str type
+        -float amount
+        -float after_amount
+        -instance machine_id
+    }
