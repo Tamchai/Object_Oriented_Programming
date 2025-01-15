@@ -78,10 +78,12 @@ classDiagram
         +remove_card()
         +validate_pin()
         +verify_card()
+        +charge_annual_fee()
     }
     class ATMCard{
         -int annual_fee = 600
         +annual_fee()
+        +charge_annual_fee()
     }
     class DebitCard{
         -str card_type
@@ -90,14 +92,18 @@ classDiagram
         +card_type()
         +balance()
         +annual_fee()
+        +charge_annual_fee()
     }
     class ShoppingDebitCard{
+        -instant cashback_rate
         -instant type
         +type()
         +apply_cashback()
+        +cashback_rate()
     }
     class TravelDebitCard{
         -instant insurance_coverage
+        -str type
         +get_travel_insurance()
     }
     class TransactionChannel {
