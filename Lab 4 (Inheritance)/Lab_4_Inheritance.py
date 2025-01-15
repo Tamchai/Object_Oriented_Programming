@@ -299,9 +299,6 @@ class ShoppingDebitCard(DebitCard):
     def type(self):
         return self.__type
 
-    def apply_cashback(self, amount):
-        return amount * self.cashback_percentage / 100
-
     def apply_cashback(self, account, purchase_amount):
         if purchase_amount > 1000:
             cashback = purchase_amount * self.__cashback_rate
