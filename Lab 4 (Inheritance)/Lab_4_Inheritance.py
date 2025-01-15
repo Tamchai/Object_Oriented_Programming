@@ -209,17 +209,7 @@ class Card:
         self.__pin = pin
         self.__type = card_type
         self.__is_inserted = False
-
-    @property
-    def is_inserted(self):
-        return self.__is_inserted  
-
-    def insert_card(self): # เปลี่ยนสถานะเป็น 'ใส่บัตร'
-        self.__is_inserted = True  
-
-    def remove_card(self): # เปลี่ยนสถานะเป็น 'ถอดบัตรออก'
-        self.__is_inserted = False 
-
+    
     @property
     def card_no(self):
         return self.__card_no
@@ -231,6 +221,16 @@ class Card:
     @property
     def account_no(self):
         return self.__account_no
+    
+    @property
+    def is_inserted(self):
+        return self.__is_inserted  
+
+    def insert_card(self): # เปลี่ยนสถานะเป็น 'ใส่บัตร'
+        self.__is_inserted = True  
+
+    def remove_card(self): # เปลี่ยนสถานะเป็น 'ถอดบัตรออก'
+        self.__is_inserted = False 
 
     def validate_pin(self, input_pin):
         """ตรวจสอบ PIN"""
