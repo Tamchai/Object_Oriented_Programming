@@ -209,9 +209,6 @@ class Card:
         self.__pin = pin
         self.__type = card_type
         self.__is_inserted = False
-        
-    def verify_card(self, pin):
-        return self.__pin == pin
 
     @property
     def is_inserted(self):
