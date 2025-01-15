@@ -240,8 +240,11 @@ class Card:
         """เพิ่ม method สำหรับตรวจสอบบัตร"""
         return self.validate_pin(input_pin)
 
+    def charge_annual_fee(self, account):
+        raise "No annual fee for this card"
+
 class ATMCard(Card):
-    def __init__(self, card_no, account_no, pin, annual_fee=600):
+    def __init__(self, card_no, account_no, pin, annual_fee=150):
         super().__init__(card_no, account_no, pin)
         self.__annual_fee = annual_fee
 
@@ -249,8 +252,15 @@ class ATMCard(Card):
     def annual_fee(self):
         return self.__annual_fee
 
+    def charge_annual_fee(self, account):
+        if account.balance >= self.__annual_fee:
+            account.balance -= self.__annual_fee
+            account.add_transaction(Transaction("F", "Annual Fee", -self.__annual_fee, account.balance))
+            return "Annual fee charged successfully"
+        return "Error: Insufficient funds for annual fee"
+
 class DebitCard(Card):
-    def __init__(self, card_no, account_no, pin, card_type="Standard", annual_fee=500):
+    def __init__(self, card_no, account_no, pin, card_type="Standard", annual_fee=300):
         super().__init__(card_no, account_no, pin, card_type)
         self.__card_type = card_type  
         self.__balance = 0.0
@@ -268,10 +278,22 @@ class DebitCard(Card):
     def annual_fee(self):
         return self.__annual_fee
 
+    def charge_annual_fee(self, account):
+        if account.balance >= self.__annual_fee:
+            account.balance -= self.__annual_fee
+            account.add_transaction(Transaction("F", "Annual Fee", -self.__annual_fee, account.balance))
+            return "Annual fee charged successfully"
+        return "Error: Insufficient funds for annual fee"
+
 class ShoppingDebitCard(DebitCard):
     def __init__(self, card_no, account_no, pin):
         super().__init__(card_no, account_no, pin,annual_fee=500)
+        self.__cashback_rate = 0.01
         self.__type = "Shopping"
+
+    @property
+    def cashback_rate(self):
+        return self.__cashback_rate
 
     @property
     def type(self):
@@ -280,13 +302,26 @@ class ShoppingDebitCard(DebitCard):
     def apply_cashback(self, amount):
         return amount * self.cashback_percentage / 100
 
+    def apply_cashback(self, account, purchase_amount):
+        if purchase_amount > 1000:
+            cashback = purchase_amount * self.__cashback_rate
+            account.balance += cashback
+            account.add_transaction(Transaction("CB", "Cashback", cashback, account.balance))
+            return f"Cashback of {cashback:.2f} applied"
+        return "No cashback applied (Purchase amount must exceed 1000)"
+
 class TravelDebitCard(DebitCard):
     def __init__(self, card_no, account_no, pin):
         super().__init__(card_no, account_no, pin)
-        self.__insurance_coverage = 100000
+        self.__insurance_coverage = 30000
+        self.__type = "Travel"
+    
+    @property
+    def type(self):
+        return self.__type
 
     def get_travel_insurance(self):
-        return self.__insurance_coverage
+        return f"Insurance coverage amount: {self.__insurance_coverage} THB"
 
 class TransactionChannel:
     def __init__(self, channel_id, bank):
