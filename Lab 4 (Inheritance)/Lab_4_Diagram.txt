@@ -47,7 +47,6 @@ classDiagram
         +withdraw()
     }
     class CurrentAccount{
-        
     }
     class Transaction {
         -instant transaction_type
