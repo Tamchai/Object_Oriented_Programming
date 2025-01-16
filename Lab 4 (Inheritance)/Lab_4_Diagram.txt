@@ -4,13 +4,16 @@ classDiagram
         -list user_list[User]
         -list atm_list[ATMMachine]
         -list edc_list[EDCMachine]
+        -list counter_list[Counter]
         +get_users()
         +search_account()
         +search_atm()
         +search_edc_machine()
+        +search_count_machine()
         +add_user( User)
         +add_atm_machine(ATMMachine)
         +add_edc_machine(EDCMachine)
+        +add_counter(Counter)
     }
 
     class User {
@@ -18,8 +21,6 @@ classDiagram
         -instant name
         -list account_list[Account]
         -list card_list[Card]
-        +citizen_id()
-        +name()
         +get_account()
         +get_card()
         +add_account(Account)
@@ -32,10 +33,6 @@ classDiagram
         -instant card
         -instant balance
         -list transaction[Transaction]
-        +account_no()
-        +user()
-        +card()
-        +balance()
         +list_transaction()
         +add_card(Card)
         +add_transaction(Transaction)
@@ -59,10 +56,6 @@ classDiagram
         -instant source
         -instant amount
         -instant balance
-        +transaction_type()
-        +source()
-        +amount()
-        +balance()
     }
     class Card {
         -instant card_no
@@ -70,10 +63,6 @@ classDiagram
         -instant pin
         -instant type
         -instant is_inserted
-        +card_no()
-        +pin()
-        +account_no()
-        +is_inserted()
         +insert_card()
         +remove_card()
         +validate_pin()
@@ -81,25 +70,22 @@ classDiagram
         +charge_annual_fee()
     }
     class ATMCard{
-        -int annual_fee = 600
+        -int annual_fee = 150
         +annual_fee()
         +charge_annual_fee()
     }
     class DebitCard{
         -str card_type
         -instant balance
-        -int annual_fee = 500
-        +card_type()
-        +balance()
+        -int annual_fee = 300
         +annual_fee()
         +charge_annual_fee()
     }
     class ShoppingDebitCard{
         -instant cashback_rate
         -instant type
-        +type()
+        -int annual_fee = 500
         +apply_cashback()
-        +cashback_rate()
     }
     class TravelDebitCard{
         -instant insurance_coverage
@@ -109,14 +95,11 @@ classDiagram
     class TransactionChannel {
         -instant channel_id
         -instant bank
-        +channel_id()
-        +bank()
     }
     class ATMMachine{
         -instant atm_no
         -instant money
         -instant current_card
-        +atm_no()
         +available_money()
         +insert_card()
         +deposit()
@@ -125,7 +108,6 @@ classDiagram
     }
     class Counter{
         -instant branch_no
-        +branch_no()
         +verify_identity()
         +deposit()
         +withdraw()
@@ -135,8 +117,6 @@ classDiagram
         -instant edc_no
         -instant merchant_account
         -instant current_card
-        +edc_no()
-        +merchant_account()
         +swipe_card()
         +pay()
         +calculate_cashback()
@@ -145,7 +125,7 @@ classDiagram
     Bank o-- User
     Bank o-- ATMMachine
     Bank o-- EDCMachine
- 		Bank o-- Counter
+    Bank o-- Counter
     TransactionChannel <|-- ATMMachine
     TransactionChannel <|-- EDCMachine
     TransactionChannel <|-- Counter
