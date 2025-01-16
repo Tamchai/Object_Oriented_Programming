@@ -4,7 +4,6 @@ classDiagram
         -list user_list[User]
         -list atm_list[ATMMachine]
         -list edc_list[EDCMachine]
-        -list counter_list[Counter]
         +get_users()
         +search_account()
         +search_atm()
