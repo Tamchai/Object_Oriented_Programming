@@ -15,7 +15,6 @@ classDiagram
         +add_edc_machine(EDCMachine)
         +add_counter(Counter)
     }
-
     class User {
         -instant citizen_id
         -instant name
@@ -26,7 +25,6 @@ classDiagram
         +add_account(Account)
         +add_card(Card)
     }
-
     class Account {
         -instant account_no
         -instant user
@@ -121,14 +119,7 @@ classDiagram
         +pay()
         +calculate_cashback()
     }
-
     Bank o-- User
-    Bank o-- ATMMachine
-    Bank o-- EDCMachine
-    Bank o-- Counter
-    TransactionChannel <|-- ATMMachine
-    TransactionChannel <|-- EDCMachine
-    TransactionChannel <|-- Counter
     User --> Account
     Account <|-- SavingAccount
     Account <|-- FixedAccount
@@ -139,3 +130,9 @@ classDiagram
     Card <|-- DebitCard
     DebitCard <|-- ShoppingDebitCard
     DebitCard <|-- TravelDebitCard
+    TransactionChannel <|-- ATMMachine
+    TransactionChannel <|-- EDCMachine
+    TransactionChannel <|-- Counter
+    Bank o-- ATMMachine
+    Bank o-- EDCMachine
+    Bank o-- Counter
