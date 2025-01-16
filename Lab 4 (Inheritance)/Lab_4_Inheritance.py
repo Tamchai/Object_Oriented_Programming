@@ -451,7 +451,6 @@ class Bank:
         self.__user_list = []
         self.__atm_list = []
         self.__edc_list = []
-        self.__counter_list = []
 
     @property
     def get_users(self):
@@ -476,12 +475,6 @@ class Bank:
                 return edc
         return None
 
-    def search_count_machine(self, counter_id):
-        for counter in self.__counter_list:
-            if counter.branch_no == counter_id:
-                return counter
-        return None
-
     def add_user(self,user) -> str:
         if not isinstance(user, User):
             return "Error"
@@ -502,14 +495,6 @@ class Bank:
         else:
             self.__edc_list.append(edc)
             return "Success"
-
-    def add_counter(self, counter) -> str:
-        if not isinstance(counter, Counter):
-            return "Error"
-        else:
-            self.__counter_list.append(counter)
-            return "Success"
-
 
 class BankingTest(unittest.TestCase):
     def setUp(self):
