@@ -119,6 +119,8 @@ classDiagram
         +calculate_cashback()
     }
     Bank o-- User
+    Bank o-- ATMMachine
+    Bank o-- EDCMachine
     User --> Account
     Account <|-- SavingAccount
     Account <|-- FixedAccount
@@ -132,6 +134,3 @@ classDiagram
     TransactionChannel <|-- ATMMachine
     TransactionChannel <|-- EDCMachine
     TransactionChannel <|-- Counter
-    Bank o-- ATMMachine
-    Bank o-- EDCMachine
-    Bank o-- Counter
