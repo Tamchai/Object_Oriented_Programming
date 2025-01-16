@@ -174,7 +174,8 @@ class FixedAccount(Account):
         return "Success"
 
 class CurrentAccount(Account):
-    pass
+    def __init__(self, account_no, user, balance):
+        super().__init__(account_no, user, balance)
 
 class Transaction:
     def __init__(self, transaction_type, source, amount, balance):
