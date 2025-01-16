@@ -145,6 +145,7 @@ classDiagram
     Bank o-- User
     Bank o-- ATMMachine
     Bank o-- EDCMachine
+ 		Bank o-- Counter
     TransactionChannel <|-- ATMMachine
     TransactionChannel <|-- EDCMachine
     TransactionChannel <|-- Counter
